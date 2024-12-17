@@ -115,9 +115,7 @@ Client -> UserAgent: Navigate to Request URI
 activate UserAgent
 UserAgent -> ASA: Authorization Request (with Request URI)
 activate ASA
-    ASA -> IDP: PAR Request (OpenID Connect), redirect_uri
 group OIDC user authentication with confidential client
-activate ASA
     ASA -> IDP: PAR Request (OpenID Connect), redirect_uri, client_id_idpsek\nsee https://gemspec.gematik.de/docs/gemSpec/gemSpec_IDP_Sek/latest/#7.1.2
 activate IDP
 note right: AS A acts as Relying Party\n for the IDP\n(client_id_idpsek)
@@ -151,7 +149,6 @@ PEA --> ASA: Token Issuance Decision (Permit/Deny)
 deactivate PEA
     ASA --> Client: Access Token, Refresh Token
 note left: Access Token bound to\nclient's DPoP public key
-deactivate ASA
 
 Client -> Client: Generate DPoP Token
 Client -> PEP_A: Access Protected Resource\n(with Access Token and DPoP Proof)
